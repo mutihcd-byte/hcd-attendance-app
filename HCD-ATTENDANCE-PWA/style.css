@@ -1,0 +1,195 @@
+body{
+  margin:0;
+  background:white;
+  font-family:'Poppins', sans-serif;
+
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+
+  padding-top:120px;
+}
+
+.container{
+  width:900px;
+  text-align:center;
+}
+
+/* TITLE */
+h1{
+  font-size:64px;
+  margin:0;
+  color:#4D97B7;
+  font-weight:900;
+}
+
+/* TRAINING TITLE */
+#trainingTitleDisplay{
+  margin-top:25px;
+
+  font-size:36px;
+  font-weight:800;
+
+  color:#4D97B7;
+
+  background:#f5fbfe;
+
+  padding:18px 25px;
+
+  border-radius:18px;
+
+  width:fit-content;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* ROW LAYOUT */
+.row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:20px;
+  margin-top:30px;
+}
+
+/* INPUT */
+input{
+  width:500px;
+  padding:22px;
+  font-size:48px;
+
+  border-radius:18px;
+  border:3px solid #4D97B7;
+
+  outline:none;
+  text-transform:uppercase;
+
+  box-sizing:border-box;
+}
+
+/* BUTTON */
+button{
+  padding:22px 35px;
+  font-size:32px;
+  font-weight:bold;
+
+  background:#4D97B7;
+  color:white;
+
+  border:none;
+  border-radius:18px;
+
+  cursor:pointer;
+  min-width:220px;
+}
+
+button:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+#syncCounter{
+  margin-top:10px;
+  font-size:18px;
+  font-weight:600;
+  color:#4D97B7;
+  opacity:0.9;
+}
+
+/* MESSAGES */
+#trainingMsg,
+#employeeMsg{
+  margin-top:15px;
+  font-size:24px;
+  font-weight:600;
+}
+
+/* EMPLOYEE CARD */
+.employeeCard{
+  margin-top:30px;
+  padding:40px;
+
+  border:3px solid #4D97B7;
+  border-radius:20px;
+
+  width:600px;
+  margin-left:auto;
+  margin-right:auto;
+
+  background:white;
+}
+
+.employeeName{
+  font-size:52px;
+  font-weight:900;
+  color:#333;
+}
+
+#syncBtn{
+  margin-top:20px;
+  background:#79aabb;
+}
+
+.employeeInfo{
+  font-size:28px;
+  margin-top:10px;
+  color:#555;
+}
+
+/* CONFIRM BUTTON */
+#submitBtn{
+  display:block;
+  margin:30px auto 0 auto;
+  width:fit-content;
+}
+
+/* MOBILE FIX */
+@media screen and (max-width: 768px){
+
+  body{
+    padding-top:30px;
+  }
+
+  .container{
+    width:100%;
+    padding:15px;
+    box-sizing:border-box;
+  }
+
+  h1{
+    font-size:34px;
+  }
+
+  .row{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  input{
+    width:100%;
+    max-width:100%;
+    font-size:24px;
+    padding:16px;
+  }
+
+  button{
+    width:100%;
+    max-width:100%;
+    font-size:22px;
+    padding:16px;
+  }
+
+  .employeeCard{
+    width:100%;
+    padding:20px;
+  }
+
+  .employeeName{
+    font-size:30px;
+  }
+
+  .employeeInfo{
+    font-size:20px;
+  }
+
+}
