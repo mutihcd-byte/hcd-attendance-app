@@ -374,3 +374,16 @@ function updateCacheStatus(){
   status.innerHTML =
     trainingText + "<br>" + employeeText;
 }
+
+function updateSyncCounter(){
+
+  let logs = JSON.parse(localStorage.getItem("attendanceLogs") || "[]");
+
+  const counter = document.getElementById("syncCounter");
+
+  if(logs.length === 0){
+    counter.innerText = "✔ All synced";
+  } else {
+    counter.innerText = "Pending Sync: " + logs.length;
+  }
+}
