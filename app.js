@@ -216,6 +216,8 @@ async function loadData(){
 
     trainings = JSON.parse(trainText);
 
+    localStorage.setItem("cachedTrainings", JSON.stringify(trainings));
+
     console.log("STEP 4: TRAININGS PARSED =", trainings);
 
 
@@ -234,11 +236,31 @@ async function loadData(){
 
     employees = JSON.parse(empText);
 
+    localStorage.setItem("cachedEmployees", JSON.stringify(employees));
+
     console.log("STEP 8: EMP PARSED =", employees);
 
   } catch(err){
-    console.error("LOAD DATA FAILED:", err);
-  }
+
+  console.error("LOAD DATA FAILED:", err);
+
+  // LOAD CACHED TRAININGS
+  trainings = JSON.parse(
+    localStorage.getItem("cachedTrainings") || "[]"
+  );
+
+  // LOAD CACHED EMPLOYEES
+  employees = JSON.parse(
+    localStorage.getItem("cachedEmployees") || "[]"
+  );
+
+  // SHOW OFFLINE MESSAGE
+  document.getElementById("trainingMsg").innerText =
+    "Offline mode";
+
+  console.log("USING OFFLINE CACHE");
+
+}
 
   console.log("DATA LOADED SUCCESSFULLY");
 }
