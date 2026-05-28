@@ -379,13 +379,28 @@ function updateCacheStatus(){
 
 function updateSyncCounter(){
 
-  let logs = JSON.parse(localStorage.getItem("attendanceLogs") || "[]");
-
   const counter = document.getElementById("syncCounter");
 
-  if(logs.length === 0){
-    counter.innerText = "✔ All synced";
+  // ⚠️ prevents crash if DOM not ready yet
+  if(!counter) return;
+
+  let logs = [];
+
+  try {
+    logs = JSON.parse(localStorage.getItem("attendanceLogs") || "[]");
+  } catch(e){
+    logs = [];
+  }
+
+  const count = logs.length;
+
+  if(count > 0){
+    counter.innerText = "Pending Sync: " + count;
   } else {
-    counter.innerText = "Pending Sync: " + logs.length;
+    counter.innerText = "✔ All synced";
   }
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  updateSyncCounter();
+});
