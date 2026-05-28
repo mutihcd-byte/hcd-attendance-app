@@ -1,4 +1,5 @@
-
+let trainingsCached = false;
+let employeesCached = false;
 /* =========================
    OFFLINE DATA STORAGE
 ========================= */
