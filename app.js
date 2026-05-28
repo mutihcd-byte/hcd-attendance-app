@@ -270,7 +270,9 @@ async function loadData(){
   console.log("DATA LOADED SUCCESSFULLY");
 }
 
-loadData();
+loadData().then(() => {
+  updateSyncCounter();
+});
 
 if ("serviceWorker" in navigator) {
 
