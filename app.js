@@ -218,6 +218,8 @@ async function loadData(){
     trainings = JSON.parse(trainText);
 
     localStorage.setItem("cachedTrainings", JSON.stringify(trainings));
+    trainingsCached = true;
+    updateCacheStatus();
 
     console.log("STEP 4: TRAININGS PARSED =", trainings);
 
@@ -238,6 +240,8 @@ async function loadData(){
     employees = JSON.parse(empText);
 
     localStorage.setItem("cachedEmployees", JSON.stringify(employees));
+    employeesCached = true;
+    updateCacheStatus();
 
     console.log("STEP 8: EMP PARSED =", employees);
 
@@ -353,4 +357,20 @@ function updateSyncCounter(){
   } else {
     counter.innerText = logs.length + " pending sync";
   }
+}
+
+function updateCacheStatus(){
+
+  const status = document.getElementById("cacheStatus");
+
+  let trainingText = trainingsCached
+    ? "✔ Trainings cached (100%)"
+    : "⏳ Trainings not cached";
+
+  let employeeText = employeesCached
+    ? "✔ Employees cached (100%)"
+    : "⏳ Employees not cached";
+
+  status.innerHTML =
+    trainingText + "<br>" + employeeText;
 }
