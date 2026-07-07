@@ -16,7 +16,7 @@ let employees = [];
   This must be your MINI HRIS deployed /exec URL.
   If this URL is Mini HRIS, the PWA will no longer append directly to the kiosk sheet.
 */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHHGV2Sgq430d3cYUKx-mA9-SXO4r1iKQWolyJe5o2BM9C1SVXVmyYmrJsXI7XOWmP/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhvXobopivkX90wiTbbQ4I5RnzAL--EpMLzyocWDBh2LXcEoSfs9VHLt-uqU7ghF16/exec";
 
 
 /* =========================
