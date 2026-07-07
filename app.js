@@ -169,7 +169,7 @@ function submitAttendance(){
   document.getElementById("empId").focus();
 }
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyMK4YDD6oJHwgwuVWLywaR9ZVo1OfEr96RrbtmT8KrUu5nBdyEWVo9FrSNGQSmGCUg/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxHHGV2Sgq430d3cYUKx-mA9-SXO4r1iKQWolyJe5o2BM9C1SVXVmyYmrJsXI7XOWmP/exec";
 
 /**async function loadData(){
 
