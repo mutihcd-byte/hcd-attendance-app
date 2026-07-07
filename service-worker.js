@@ -1,4 +1,4 @@
-const CACHE_NAME = "hcd-attendance-v10";
+const CACHE_NAME = "hcd-attendance-v12";
 
 const FILES_TO_CACHE = [
   "./",
