@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <meta
+    name="theme-color"
+    content="#4D97B7"
+  >
+
+  <title>HCD Attendance PWA</title>
+
+  <!-- PWA MANIFEST -->
+  <link
+    rel="manifest"
+    href="manifest.json"
+  >
+
+  <!-- Poppins Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <!-- CSS -->
+  <link
+    rel="stylesheet"
+    href="style.css?v=manual-employee-v1"
+  >
+</head>
+
+<body>
+
+  <!-- TOP STATUS BAR -->
+  <div class="top-status">
+
+    <div id="syncCounter">
+      ✔ All synced
+    </div>
+
+    <div
+      id="connectionStatus"
+      class="online"
+    >
+      ONLINE
+    </div>
+
+  </div>
+
+
+  <main class="container">
+
+    <div id="cacheStatus"></div>
+
+    <h1>HCD ATTENDANCE</h1>
+
+
+    <!-- TRAINING SECTION -->
+    <section id="trainingSection">
+
+      <div class="row">
+
+        <input
+          type="text"
+          id="trainingId"
+          placeholder="TRAINING ID"
+          autocomplete="off"
+          oninput="
+            this.value =
+              this.value
+                .toUpperCase()
+                .replace(/\s/g,'')
+          "
+        >
+
+        <button
+          type="button"
+          onclick="validateTraining()"
+          id="trainingBtn"
+        >
+          VALIDATE
+        </button>
+
+      </div>
+
+      <div id="trainingMsg"></div>
+
+    </section>
+
+
+    <!-- SELECTED TRAINING -->
+    <div id="trainingTitleDisplay"></div>
+
+
+    <!-- EMPLOYEE SECTION -->
+    <section
+      id="employeeSection"
+      style="display:none;"
+    >
+
+      <div class="row">
+
+        <input
+          type="text"
+          id="empId"
+          maxlength="20"
+          placeholder="EMPLOYEE ID"
+          autocomplete="off"
+          oninput="
+            this.value =
+              this.value
+                .toUpperCase()
+                .replace(/\s/g,'')
+          "
+        >
+
+        <button
+          type="button"
+          onclick="validateEmployee()"
+          id="empBtn"
+        >
+          SEARCH
+        </button>
+
+      </div>
+
+      <div id="employeeMsg"></div>
+
+
+      <!-- MANUAL EMPLOYEE ENTRY -->
+      <section
+        id="manualEntry"
+        class="manual-entry-card"
+        style="display:none;"
+      >
+
+        <div class="manual-entry-heading">
+          Employee Not Found
+        </div>
+
+        <p class="manual-entry-description">
+          Enter the employee’s information manually.
+          The details will be saved on this device for
+          future offline use.
+        </p>
+
+        <div class="manual-form-group">
+
+          <label for="manualEmpId">
+            Employee ID
+          </label>
+
+          <input
+            type="text"
+            id="manualEmpId"
+            placeholder="EMPLOYEE ID"
+            autocomplete="off"
+            oninput="
+              this.value =
+                this.value
+                  .toUpperCase()
+                  .replace(/\s/g,'')
+            "
+          >
+
+        </div>
+
+        <div class="manual-form-group">
+
+          <label for="manualEmpName">
+            Full Name
+          </label>
+
+          <input
+            type="text"
+            id="manualEmpName"
+            placeholder="FULL NAME"
+            autocomplete="off"
+          >
+
+        </div>
+
+        <div class="manual-form-group">
+
+          <label for="manualEmpDept">
+            Department / Branch
+          </label>
+
+          <input
+            type="text"
+            id="manualEmpDept"
+            placeholder="DEPARTMENT OR BRANCH"
+            autocomplete="off"
+          >
+
+        </div>
+
+        <div class="manual-button-row">
+
+          <button
+            type="button"
+            class="secondary-button"
+            onclick="cancelManualEntry()"
+          >
+            CANCEL
+          </button>
+
+          <button
+            type="button"
+            onclick="saveManualEmployee()"
+          >
+            USE DETAILS
+          </button>
+
+        </div>
+
+      </section>
+
+
+      <!-- EMPLOYEE CARD -->
+      <section
+        id="employeeCard"
+        class="employeeCard"
+        style="display:none;"
+      >
+
+        <span
+          id="manualEmployeeBadge"
+          class="manual-badge"
+          style="display:none;"
+        >
+          MANUAL ENTRY
+        </span>
+
+        <div
+          class="employeeName"
+          id="empName"
+        ></div>
+
+        <div class="employeeInfo">
+
+          <div id="empDept"></div>
+
+          <div id="empPos"></div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CONFIRM -->
+      <button
+        type="button"
+        id="submitBtn"
+        style="display:none;"
+        onclick="submitAttendance()"
+      >
+        CONFIRM ATTENDANCE
+      </button>
+
+
+      <!-- SYNC -->
+      <button
+        type="button"
+        id="syncBtn"
+        onclick="syncToGoogleSheets(false)"
+      >
+        SYNC TO SHEETS
+      </button>
+
+    </section>
+
+  </main>
+
+
+  <!-- JS -->
+  <script src="app.js?v=manual-employee-v1"></script>
+
+</body>
+
+</html>
