@@ -745,246 +745,140 @@ button:disabled {
 =========================
 
 /* =========================================================
-   COMPACT TOP TOOLBAR
-   Pending Sync | Sync Now | Home | Online
+   COMPACT CENTERED TOP TOOLBAR
 ========================================================= */
 
-/*
-  This overrides the old top-status layout that may be
-  spreading the items across the entire screen.
-*/
-.top-status {
-  position: fixed !important;
-  top: 10px !important;
-  left: 50% !important;
-  right: auto !important;
+#kioskToolbar.kiosk-topbar {
+  position: relative;
+  z-index: 1000;
 
-  transform: translateX(-50%) !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
 
-  z-index: 10000 !important;
+  gap: 16px;
 
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  flex-wrap: nowrap !important;
+  width: max-content;
+  max-width: calc(100% - 24px);
 
-  gap: 5px !important;
+  margin: 36px auto 135px;
+  padding: 0;
 
-  width: max-content !important;
-  max-width: calc(100% - 20px) !important;
-  min-height: auto !important;
+  background: transparent;
 
-  margin: 0 !important;
-  padding: 5px 7px !important;
+  box-sizing: border-box;
+  white-space: nowrap;
 
-  background: rgba(255, 255, 255, 0.97) !important;
-
-  border: 1px solid rgba(77, 151, 183, 0.22) !important;
-  border-radius: 999px !important;
-
-  box-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.10) !important;
-
-  white-space: nowrap !important;
-  overflow-x: auto !important;
-
-  pointer-events: auto !important;
+  pointer-events: auto;
 }
 
 
 /* =========================================================
-   SYNC STATUS GROUP
+   SHARED PILL SIZE
 ========================================================= */
 
-.top-status .top-sync-tools {
-  position: static !important;
+#kioskToolbar .kiosk-pill {
+  display: inline-flex;
+  flex: 0 0 auto;
 
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  align-items: center;
+  justify-content: center;
 
-  gap: 5px !important;
+  width: 124px;
+  height: 40px;
 
-  width: auto !important;
-  min-width: 0 !important;
+  margin: 0;
+  padding: 0 16px;
 
-  margin: 0 !important;
-  padding: 0 !important;
+  box-sizing: border-box;
+  border-radius: 999px;
 
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: lowercase;
 
-  pointer-events: auto !important;
+  white-space: nowrap;
 }
 
 
 /* =========================================================
-   PENDING SYNC COUNTER
+   ALL SYNCED / PENDING STATUS
 ========================================================= */
 
-.top-status #syncCounter {
-  position: static !important;
+#kioskToolbar .kiosk-sync-status {
+  background: #ffffff;
+  color: #3786b1;
 
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  width: auto !important;
-  min-width: 0 !important;
-  min-height: 28px !important;
-
-  margin: 0 !important;
-  padding: 5px 9px !important;
-
-  background: #ffffff !important;
-  color: #4D97B7 !important;
-
-  border: 1px solid #4D97B7 !important;
-  border-radius: 999px !important;
-
-  font-family: "Poppins", sans-serif !important;
-  font-size: 9px !important;
-  font-weight: 700 !important;
-  line-height: 1 !important;
-  letter-spacing: 0 !important;
-
-  box-shadow: none !important;
-
-  white-space: nowrap !important;
-  pointer-events: auto !important;
+  border: 1.5px solid #3786b1;
 }
 
 
 /* =========================================================
-   SYNC NOW BUTTON
+   SYNC NOW AND HOME BUTTONS
 ========================================================= */
 
-.top-status .top-sync-button {
-  position: static !important;
+#kioskToolbar button.kiosk-action-button {
+  all: unset;
 
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
+  display: inline-flex;
+  flex: 0 0 auto;
 
-  width: auto !important;
-  min-width: 0 !important;
-  min-height: 28px !important;
+  align-items: center;
+  justify-content: center;
 
-  margin: 0 !important;
-  padding: 5px 9px !important;
+  width: 124px;
+  height: 40px;
 
-  background: #4D97B7 !important;
-  color: #ffffff !important;
+  margin: 0;
+  padding: 0 16px;
 
-  border: 1px solid #4D97B7 !important;
-  border-radius: 999px !important;
+  box-sizing: border-box;
 
-  font-family: "Poppins", sans-serif !important;
-  font-size: 9px !important;
-  font-weight: 700 !important;
-  line-height: 1 !important;
-  letter-spacing: 0 !important;
+  background: #3786b1;
+  color: #ffffff;
 
-  box-shadow: none !important;
+  border: 1.5px solid #3786b1;
+  border-radius: 999px;
 
-  cursor: pointer !important;
-  pointer-events: auto !important;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: lowercase;
 
-  transform: none !important;
+  cursor: pointer;
+  pointer-events: auto;
 
-  white-space: nowrap !important;
+  white-space: nowrap;
 
   transition:
     background-color 0.15s ease,
     color 0.15s ease,
-    opacity 0.15s ease !important;
+    transform 0.1s ease,
+    opacity 0.15s ease;
 }
 
-.top-status .top-sync-button:hover {
-  background: #ffffff !important;
-  color: #4D97B7 !important;
+#kioskToolbar button.kiosk-action-button:hover {
+  background: #ffffff;
+  color: #3786b1;
 }
 
-.top-status .top-sync-button:active {
-  opacity: 0.72 !important;
-  transform: none !important;
+#kioskToolbar button.kiosk-action-button:active {
+  transform: scale(0.96);
 }
 
-.top-status .top-sync-button:disabled {
-  opacity: 0.5 !important;
-  cursor: wait !important;
+#kioskToolbar button.kiosk-action-button:focus-visible {
+  outline: 3px solid rgba(55, 134, 177, 0.25);
+  outline-offset: 2px;
 }
 
-.top-status .top-sync-button.syncing {
-  cursor: wait !important;
-}
-
-
-/* =========================================================
-   HOME BUTTON
-========================================================= */
-
-.top-status .top-home-button {
-  position: static !important;
-
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  width: auto !important;
-  min-width: 0 !important;
-  min-height: 28px !important;
-
-  margin: 0 !important;
-  padding: 5px 9px !important;
-
-  background: #4D97B7 !important;
-  color: #ffffff !important;
-
-  border: 1px solid #4D97B7 !important;
-  border-radius: 999px !important;
-
-  font-family: "Poppins", sans-serif !important;
-  font-size: 9px !important;
-  font-weight: 700 !important;
-  line-height: 1 !important;
-  letter-spacing: 0 !important;
-
-  box-shadow: none !important;
-
-  cursor: pointer !important;
-  pointer-events: auto !important;
-
-  transform: none !important;
-
-  white-space: nowrap !important;
-
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    opacity 0.15s ease !important;
-}
-
-.top-status .top-home-button:hover {
-  background: #ffffff !important;
-  color: #4D97B7 !important;
-
-  transform: none !important;
-}
-
-.top-status .top-home-button:active {
-  opacity: 0.72 !important;
-  transform: none !important;
-}
-
-.top-status .top-home-button:focus-visible {
-  outline: 2px solid rgba(77, 151, 183, 0.35) !important;
-  outline-offset: 2px !important;
+#kioskToolbar button.kiosk-action-button:disabled {
+  opacity: 0.55;
+  cursor: wait;
 }
 
 
@@ -992,82 +886,47 @@ button:disabled {
    ONLINE / OFFLINE STATUS
 ========================================================= */
 
-.top-status #connectionStatus {
-  position: static !important;
-
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-
-  width: auto !important;
-  min-width: 0 !important;
-  min-height: 28px !important;
-
-  margin: 0 !important;
-  padding: 5px 9px !important;
-
-  background: #ffffff !important;
-
-  border-radius: 999px !important;
-
-  font-family: "Poppins", sans-serif !important;
-  font-size: 9px !important;
-  font-weight: 700 !important;
-  line-height: 1 !important;
-  letter-spacing: 0 !important;
-
-  box-shadow: none !important;
-
-  white-space: nowrap !important;
-  pointer-events: auto !important;
+#kioskToolbar .kiosk-connection-status {
+  background: #ffffff;
 }
 
-.top-status #connectionStatus.online {
-  color: #16844f !important;
-  border: 1px solid #20a464 !important;
+#kioskToolbar .kiosk-connection-status.online {
+  color: #3d902d;
+  border: 1.5px solid #65a956;
 }
 
-.top-status #connectionStatus.offline {
-  color: #c0392b !important;
-  border: 1px solid #d9534f !important;
-}
-
-
-/* Prevent the fixed toolbar from covering page content */
-body {
-  padding-top: 52px;
+#kioskToolbar .kiosk-connection-status.offline {
+  color: #c43b3b;
+  border: 1.5px solid #d75a5a;
 }
 
 
 /* =========================================================
-   MOBILE / SMALL SCREEN
+   TABLET AND MOBILE
 ========================================================= */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
 
-  .top-status {
-    top: 6px !important;
-    gap: 3px !important;
+  #kioskToolbar.kiosk-topbar {
+    gap: 7px;
 
-    max-width: calc(100% - 10px) !important;
+    max-width: calc(100% - 12px);
 
-    padding: 4px 5px !important;
+    margin-top: 18px;
+    margin-bottom: 80px;
+
+    overflow-x: auto;
   }
 
-  .top-status .top-sync-tools {
-    gap: 3px !important;
-  }
+  #kioskToolbar .kiosk-pill,
+  #kioskToolbar button.kiosk-action-button {
+    width: auto;
+    min-width: 78px;
+    height: 34px;
 
-  .top-status #syncCounter,
-  .top-status .top-sync-button,
-  .top-status .top-home-button,
-  .top-status #connectionStatus {
-    min-height: 25px !important;
-    padding: 4px 6px !important;
-    font-size: 7.5px !important;
-  }
+    padding-left: 11px;
+    padding-right: 11px;
 
-  body {
-    padding-top: 46px;
+    font-size: 10px;
   }
 }
