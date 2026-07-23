@@ -1269,3 +1269,369 @@ if ("serviceWorker" in navigator) {
       });
   });
 }
+
+==============
+/* =========================================================
+   RETURN TO TRAINING SELECTION
+   ========================================================= */
+
+function goBackHome() {
+  /*
+    This resets only the current visible kiosk session.
+
+    It does NOT delete:
+    - cached training records
+    - cached employee records
+    - offline attendance records
+    - pending sync records
+    - localStorage data
+    - IndexedDB data
+    - service-worker caches
+  */
+
+  const trainingSection =
+    document.getElementById("trainingSection");
+
+  const trainingInput =
+    document.getElementById("trainingId");
+
+  const trainingButton =
+    document.getElementById("trainingBtn");
+
+  const trainingMessage =
+    document.getElementById("trainingMsg");
+
+  const trainingTitle =
+    document.getElementById("trainingTitleDisplay");
+
+  const employeeSection =
+    document.getElementById("employeeSection");
+
+  const employeeInput =
+    document.getElementById("empId");
+
+  const employeeButton =
+    document.getElementById("empBtn");
+
+  const employeeMessage =
+    document.getElementById("employeeMsg");
+
+  const manualEntry =
+    document.getElementById("manualEntry");
+
+  const manualEmployeeId =
+    document.getElementById("manualEmpId");
+
+  const manualEmployeeName =
+    document.getElementById("manualEmpName");
+
+  const manualEmployeeDepartment =
+    document.getElementById("manualEmpDept");
+
+  const employeeCard =
+    document.getElementById("employeeCard");
+
+  const employeeName =
+    document.getElementById("empName");
+
+  const employeeDepartment =
+    document.getElementById("empDept");
+
+  const employeePosition =
+    document.getElementById("empPos");
+
+  const manualEmployeeBadge =
+    document.getElementById("manualEmployeeBadge");
+
+  const submitButton =
+    document.getElementById("submitBtn");
+
+
+  /* Show the training selection section */
+
+  if (trainingSection) {
+    trainingSection.style.display = "";
+  }
+
+
+  /* Reset the training input */
+
+  if (trainingInput) {
+    trainingInput.value = "";
+    trainingInput.disabled = false;
+    trainingInput.readOnly = false;
+  }
+
+  if (trainingButton) {
+    trainingButton.disabled = false;
+    trainingButton.textContent = "VALIDATE";
+  }
+
+  if (trainingMessage) {
+    trainingMessage.textContent = "";
+    trainingMessage.innerHTML = "";
+    trainingMessage.className = "";
+  }
+
+  if (trainingTitle) {
+    trainingTitle.textContent = "";
+    trainingTitle.innerHTML = "";
+  }
+
+
+  /* Hide the employee section */
+
+  if (employeeSection) {
+    employeeSection.style.display = "none";
+  }
+
+
+  /* Reset the employee search */
+
+  if (employeeInput) {
+    employeeInput.value = "";
+    employeeInput.disabled = false;
+    employeeInput.readOnly = false;
+  }
+
+  if (employeeButton) {
+    employeeButton.disabled = false;
+    employeeButton.textContent = "SEARCH";
+  }
+
+  if (employeeMessage) {
+    employeeMessage.textContent = "";
+    employeeMessage.innerHTML = "";
+    employeeMessage.className = "";
+  }
+
+
+  /* Hide and clear manual employee entry */
+
+  if (manualEntry) {
+    manualEntry.style.display = "none";
+  }
+
+  if (manualEmployeeId) {
+    manualEmployeeId.value = "";
+  }
+
+  if (manualEmployeeName) {
+    manualEmployeeName.value = "";
+  }
+
+  if (manualEmployeeDepartment) {
+    manualEmployeeDepartment.value = "";
+  }
+
+
+  /* Hide and clear employee information */
+
+  if (employeeCard) {
+    employeeCard.style.display = "none";
+  }
+
+  if (employeeName) {
+    employeeName.textContent = "";
+  }
+
+  if (employeeDepartment) {
+    employeeDepartment.textContent = "";
+  }
+
+  if (employeePosition) {
+    employeePosition.textContent = "";
+  }
+
+  if (manualEmployeeBadge) {
+    manualEmployeeBadge.style.display = "none";
+  }
+
+
+  /* Hide the attendance confirmation button */
+
+  if (submitButton) {
+    submitButton.style.display = "none";
+    submitButton.disabled = false;
+    submitButton.textContent = "CONFIRM ATTENDANCE";
+  }
+
+
+  /*
+    Reset common current-session variables only.
+
+    These do not affect the cached training or employee lists.
+  */
+
+  if (typeof selectedTraining !== "undefined") {
+    selectedTraining = null;
+  }
+
+  if (typeof currentTraining !== "undefined") {
+    currentTraining = null;
+  }
+
+  if (typeof activeTraining !== "undefined") {
+    activeTraining = null;
+  }
+
+  if (typeof selectedEmployee !== "undefined") {
+    selectedEmployee = null;
+  }
+
+  if (typeof currentEmployee !== "undefined") {
+    currentEmployee = null;
+  }
+
+
+  /* Return to the top without refreshing */
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+
+  /* Focus the training ID field */
+
+  window.setTimeout(() => {
+    if (trainingInput) {
+      trainingInput.focus();
+    }
+  }, 200);
+
+  console.log(
+    "Returned to training selection. Offline caches preserved."
+  );
+}
+
+/* =========================================================
+   MANUALLY SYNC ALL PENDING ATTENDANCE
+========================================================= */
+
+async function syncAllPendingAttendance() {
+  const syncButton =
+    document.getElementById("syncPendingBtn");
+
+  const syncCounter =
+    document.getElementById("syncCounter");
+
+  /*
+    Do not attempt the request when the device is offline.
+
+    This does not delete pending records. They remain saved
+    and can be synchronized later.
+  */
+  if (!navigator.onLine) {
+    if (syncCounter) {
+      syncCounter.textContent =
+        "⚠ Offline — sync pending";
+    }
+
+    console.warn(
+      "Cannot synchronize while offline."
+    );
+
+    return;
+  }
+
+
+  /*
+    Prevent repeated clicks while synchronization is running.
+  */
+  if (syncButton) {
+    syncButton.disabled = true;
+    syncButton.classList.add("syncing");
+    syncButton.textContent = "↻ SYNCING";
+  }
+
+
+  try {
+    /*
+      Use the kiosk's existing synchronization function.
+
+      Your current HTML already uses:
+      syncToGoogleSheets(false)
+
+      Therefore, this manual button uses the same function.
+    */
+    if (
+      typeof syncToGoogleSheets !== "function"
+    ) {
+      throw new Error(
+        "syncToGoogleSheets() is not defined in app.js."
+      );
+    }
+
+    await syncToGoogleSheets(false);
+
+    console.log(
+      "Manual synchronization request completed."
+    );
+
+  } catch (error) {
+    console.error(
+      "Unable to synchronize pending attendance:",
+      error
+    );
+
+    if (syncCounter) {
+      syncCounter.textContent =
+        "⚠ Sync failed — try again";
+    }
+
+  } finally {
+    /*
+      Restore the button even when synchronization fails.
+    */
+    if (syncButton) {
+      syncButton.disabled = false;
+      syncButton.classList.remove("syncing");
+      syncButton.textContent = "↻ SYNC";
+    }
+  }
+}
+
+/* =========================================================
+   SYNC BUTTON CONNECTION STATUS
+========================================================= */
+
+function updateManualSyncButton() {
+  const syncButton =
+    document.getElementById("syncPendingBtn");
+
+  if (!syncButton) {
+    return;
+  }
+
+  if (navigator.onLine) {
+    syncButton.disabled = false;
+    syncButton.title =
+      "Sync all pending attendance records";
+  } else {
+    syncButton.disabled = false;
+
+    /*
+      Keep it clickable so the user receives the clear
+      offline message when they press it.
+    */
+    syncButton.title =
+      "You are offline. Pending records are preserved.";
+  }
+}
+
+window.addEventListener(
+  "online",
+  updateManualSyncButton
+);
+
+window.addEventListener(
+  "offline",
+  updateManualSyncButton
+);
+
+window.addEventListener(
+  "load",
+  updateManualSyncButton
+);
+
