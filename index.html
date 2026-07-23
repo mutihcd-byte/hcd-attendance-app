@@ -31,7 +31,7 @@
   <!-- CSS -->
   <link
   rel="stylesheet"
-  href="./style.css?v=2026-07-23-01"
+  href="./style.css?v=2026-07-23-02"
 >
 </head>
 
@@ -280,102 +280,119 @@
 
 
   <!-- JS -->
-  <!-- MAIN APPLICATION JS -->
-<script
-  src="./app.js?v=2026-07-23-01"
-></script>
+    <!-- MAIN ATTENDANCE KIOSK APPLICATION -->
+  <script
+    src="./app.js?v=2026-07-23-02"
+    onload="console.log('app.js loaded successfully')"
+    onerror="console.error('ERROR: app.js failed to load')"
+  ></script>
 
 
-<!-- SERVICE WORKER REGISTRATION -->
-<script>
-(() => {
-  if (!("serviceWorker" in navigator)) {
-    console.warn(
-      "Service workers are not supported in this browser."
-    );
-
-    return;
-  }
-
-  let pageIsReloading = false;
-
-  /*
-    When a newly activated service worker takes control,
-    reload the page once to display the newest kiosk version.
-  */
-  navigator.serviceWorker.addEventListener(
-    "controllerchange",
-    () => {
-      if (pageIsReloading) {
-        return;
-      }
-
-      pageIsReloading = true;
-
-      console.log(
-        "New kiosk version activated. Reloading page."
+  <!-- SERVICE WORKER REGISTRATION -->
+  <script>
+  (() => {
+    if (!("serviceWorker" in navigator)) {
+      console.warn(
+        "Service workers are not supported in this browser."
       );
 
-      window.location.reload();
+      return;
     }
-  );
 
-  window.addEventListener(
-    "load",
-    async () => {
-      try {
-        const registration =
-          await navigator.serviceWorker.register(
-            "./service-worker.js",
-            {
-              scope: "./",
-              updateViaCache: "none"
-            }
-          );
+    let pageIsReloading = false;
+
+    /*
+      Reload once when a newly installed service worker
+      takes control of the kiosk.
+    */
+    navigator.serviceWorker.addEventListener(
+      "controllerchange",
+      () => {
+        if (pageIsReloading) {
+          return;
+        }
+
+        pageIsReloading = true;
 
         console.log(
-          "Service worker registered successfully:",
-          registration.scope
+          "New kiosk version activated. Reloading once."
         );
 
-        /*
-          Immediately check whether a newer service worker
-          is available.
-        */
-        await registration.update();
-
-        /*
-          Check for updates every hour when the kiosk remains
-          open for a long period.
-        */
-        window.setInterval(
-          async () => {
-            try {
-              await registration.update();
-
-              console.log(
-                "Checked for a newer kiosk version."
-              );
-            } catch (updateError) {
-              console.warn(
-                "Unable to check for a kiosk update:",
-                updateError
-              );
-            }
-          },
-          60 * 60 * 1000
-        );
-
-      } catch (registrationError) {
-        console.error(
-          "Service worker registration failed:",
-          registrationError
-        );
+        window.location.reload();
       }
-    }
-  );
-})();
-</script>
+    );
+
+    window.addEventListener(
+      "load",
+      async () => {
+        try {
+          const registration =
+            await navigator.serviceWorker.register(
+              "./service-worker.js",
+              {
+                scope: "./",
+                updateViaCache: "none"
+              }
+            );
+
+          console.log(
+            "Service worker registered:",
+            registration.scope
+          );
+
+          /*
+            Check immediately for a newer service worker.
+          */
+          await registration.update();
+
+          /*
+            Check once every hour when the kiosk stays open.
+          */
+          window.setInterval(
+            () => {
+              registration.update().catch(
+                updateError => {
+                  console.warn(
+                    "Unable to check for updates:",
+                    updateError
+                  );
+                }
+              );
+            },
+            60 * 60 * 1000
+          );
+
+        } catch (registrationError) {
+          console.error(
+            "Service worker registration failed:",
+            registrationError
+          );
+        }
+      }
+    );
+  })();
+  </script>
+
+
+  <!-- TEMPORARY STARTUP CHECK -->
+  <script>
+  window.addEventListener("load", () => {
+    console.log(
+      "validateTraining:",
+      typeof window.validateTraining
+    );
+
+    console.log(
+      "validateEmployee:",
+      typeof window.validateEmployee
+    );
+
+    console.log(
+      "submitAttendance:",
+      typeof window.submitAttendance
+    );
+  });
+  </script>
 
 </body>
 
