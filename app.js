@@ -1624,36 +1624,39 @@ window.addEventListener(
 
 
 /* =========================================================
-   TOP TOOLBAR BUTTON EVENTS
+   TOP TOOLBAR BUTTON CONNECTIONS
 ========================================================= */
 
-const toolbarHomeButton =
-  document.getElementById("homeBtn");
+function initializeKioskToolbar() {
+  const homeButton =
+    document.getElementById("homeBtn");
 
-const toolbarSyncButton =
-  document.getElementById("syncPendingBtn");
+  const syncButton =
+    document.getElementById("syncPendingBtn");
 
 
-if (toolbarHomeButton) {
-  toolbarHomeButton.addEventListener(
-    "click",
-    () => {
-      console.log("Home button clicked.");
+  if (homeButton) {
+    homeButton.addEventListener(
+      "click",
+      goBackHome
+    );
+  }
 
-      goBackHome();
-    }
-  );
+
+  if (syncButton) {
+    syncButton.addEventListener(
+      "click",
+      syncAllPendingAttendance
+    );
+  }
 }
 
 
-if (toolbarSyncButton) {
-  toolbarSyncButton.addEventListener(
-    "click",
-    () => {
-      console.log("Sync Now button clicked.");
-
-      syncAllPendingAttendance();
-    }
+if (document.readyState === "loading") {
+  document.addEventListener(
+    "DOMContentLoaded",
+    initializeKioskToolbar
   );
+} else {
+  initializeKioskToolbar();
 }
-
