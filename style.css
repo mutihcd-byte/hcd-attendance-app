@@ -741,3 +741,117 @@ button:disabled {
     font-size: 13px;
   }
 }
+
+=========================
+
+/* =========================================================
+   PERMANENT TOP HOME BUTTON
+========================================================= */
+
+.top-home-button {
+  position: fixed;
+
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 9999;
+
+  min-width: 82px;
+  padding: 7px 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+
+  background: #ffffff;
+  color: #4D97B7;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.15);
+
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.top-home-button:hover {
+  background: #4D97B7;
+  color: #ffffff;
+
+  transform:
+    translateX(-50%)
+    translateY(-1px);
+}
+
+.top-home-button:active {
+  transform:
+    translateX(-50%)
+    scale(0.96);
+}
+
+.top-home-button:focus-visible {
+  outline: 3px solid rgba(77, 151, 183, 0.35);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   TOP SYNC STATUS AND BUTTON
+========================================================= */
+
+.top-sync-tools {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.top-sync-button {
+  padding: 5px 9px;
+
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+
+  background: #ffffff;
+  color: #4D97B7;
+
+  font-family: "Poppins", sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.12);
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.top-sync-button:hover {
+  background: #4D97B7;
+  color: #ffffff;
+}
+
+.top-sync-button:active {
+  transform: scale(0.95);
+}
+
+.top-sync-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.top-sync-button.syncing {
+  cursor: wait;
+}
