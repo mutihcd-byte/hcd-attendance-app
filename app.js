@@ -1509,6 +1509,10 @@ function goBackHome() {
    MANUALLY SYNC ALL PENDING ATTENDANCE
 ========================================================= */
 
+/* =========================================================
+   MANUALLY SYNC ALL PENDING ATTENDANCE
+========================================================= */
+
 async function syncAllPendingAttendance() {
   const syncButton =
     document.getElementById("syncPendingBtn");
@@ -1516,78 +1520,61 @@ async function syncAllPendingAttendance() {
   const syncCounter =
     document.getElementById("syncCounter");
 
-  /*
-    Do not attempt the request when the device is offline.
 
-    This does not delete pending records. They remain saved
-    and can be synchronized later.
-  */
   if (!navigator.onLine) {
     if (syncCounter) {
       syncCounter.textContent =
-        "⚠ Offline — sync pending";
+        "⚠ Pending — offline";
     }
 
     console.warn(
-      "Cannot synchronize while offline."
+      "The device is offline. Pending records were preserved."
     );
 
     return;
   }
 
 
-  /*
-    Prevent repeated clicks while synchronization is running.
-  */
   if (syncButton) {
     syncButton.disabled = true;
-    syncButton.classList.add("syncing");
     syncButton.textContent = "↻ SYNCING";
   }
 
 
   try {
-    /*
-      Use the kiosk's existing synchronization function.
-
-      Your current HTML already uses:
-      syncToGoogleSheets(false)
-
-      Therefore, this manual button uses the same function.
-    */
     if (
       typeof syncToGoogleSheets !== "function"
     ) {
       throw new Error(
-        "syncToGoogleSheets() is not defined in app.js."
+        "syncToGoogleSheets() was not found in app.js."
       );
     }
 
+    /*
+      This uses your kiosk's existing pending-sync process.
+      It does not delete cached trainings or employees.
+    */
     await syncToGoogleSheets(false);
 
     console.log(
-      "Manual synchronization request completed."
+      "Manual pending synchronization completed."
     );
 
   } catch (error) {
     console.error(
-      "Unable to synchronize pending attendance:",
+      "Manual synchronization failed:",
       error
     );
 
     if (syncCounter) {
       syncCounter.textContent =
-        "⚠ Sync failed — try again";
+        "⚠ Sync failed";
     }
 
   } finally {
-    /*
-      Restore the button even when synchronization fails.
-    */
     if (syncButton) {
       syncButton.disabled = false;
-      syncButton.classList.remove("syncing");
-      syncButton.textContent = "↻ SYNC";
+      syncButton.textContent = "↻ SYNC NOW";
     }
   }
 }
@@ -1634,4 +1621,39 @@ window.addEventListener(
   "load",
   updateManualSyncButton
 );
+
+
+/* =========================================================
+   TOP TOOLBAR BUTTON EVENTS
+========================================================= */
+
+const toolbarHomeButton =
+  document.getElementById("homeBtn");
+
+const toolbarSyncButton =
+  document.getElementById("syncPendingBtn");
+
+
+if (toolbarHomeButton) {
+  toolbarHomeButton.addEventListener(
+    "click",
+    () => {
+      console.log("Home button clicked.");
+
+      goBackHome();
+    }
+  );
+}
+
+
+if (toolbarSyncButton) {
+  toolbarSyncButton.addEventListener(
+    "click",
+    () => {
+      console.log("Sync Now button clicked.");
+
+      syncAllPendingAttendance();
+    }
+  );
+}
 
