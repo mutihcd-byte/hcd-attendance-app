@@ -31,53 +31,47 @@
   <!-- CSS -->
   <link
   rel="stylesheet"
-  href="./style.css?v=2026-07-23-03"
+  href="./style.css?v=2026-07-23-04"
 >
 </head>
 
 <body>
 
- <!-- TOP STATUS BAR -->
-<div class="top-status">
+ <!-- COMPACT TOP TOOLBAR -->
+<div class="top-toolbar">
 
-  <!-- SYNC STATUS AND MANUAL SYNC BUTTON -->
-  <div class="top-sync-tools">
-
-    <div id="syncCounter">
-      ✔ All synced
-    </div>
-
-    <button
-      type="button"
-      id="syncPendingBtn"
-      class="top-sync-button"
-      onclick="syncAllPendingAttendance()"
-      title="Sync all pending attendance records"
-      aria-label="Sync all pending attendance records"
-    >
-      ↻ SYNC
-    </button>
-
+  <!-- PENDING SYNC STATUS -->
+  <div
+    id="syncCounter"
+    class="toolbar-status"
+  >
+    ✔ All synced
   </div>
 
+  <!-- MANUAL SYNC BUTTON -->
+  <button
+    type="button"
+    id="syncPendingBtn"
+    class="toolbar-button"
+    title="Sync all pending attendance"
+  >
+    ↻ SYNC NOW
+  </button>
 
-  <!-- PERMANENT HOME BUTTON -->
+  <!-- HOME BUTTON -->
   <button
     type="button"
     id="homeBtn"
-    class="top-home-button"
-    onclick="goBackHome()"
+    class="toolbar-button"
     title="Return to training selection"
-    aria-label="Return to training selection"
   >
     ⌂ HOME
   </button>
 
-
   <!-- CONNECTION STATUS -->
   <div
     id="connectionStatus"
-    class="online"
+    class="toolbar-status online"
   >
     ONLINE
   </div>
@@ -313,7 +307,7 @@
   <!-- JS -->
     <!-- MAIN ATTENDANCE KIOSK APPLICATION -->
   <script
-    src="./app.js?v=2026-07-23-03"
+    src="./app.js?v=2026-07-23-04"
     onload="console.log('app.js loaded successfully')"
     onerror="console.error('ERROR: app.js failed to load')"
   ></script>
