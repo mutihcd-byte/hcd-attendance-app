@@ -745,113 +745,329 @@ button:disabled {
 =========================
 
 /* =========================================================
-   PERMANENT TOP HOME BUTTON
+   COMPACT TOP TOOLBAR
+   Pending Sync | Sync Now | Home | Online
 ========================================================= */
 
-.top-home-button {
-  position: fixed;
+/*
+  This overrides the old top-status layout that may be
+  spreading the items across the entire screen.
+*/
+.top-status {
+  position: fixed !important;
+  top: 10px !important;
+  left: 50% !important;
+  right: auto !important;
 
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) !important;
 
-  z-index: 9999;
+  z-index: 10000 !important;
 
-  min-width: 82px;
-  padding: 7px 12px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: nowrap !important;
 
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  border-radius: 20px;
+  gap: 5px !important;
 
-  background: #ffffff;
-  color: #4D97B7;
+  width: max-content !important;
+  max-width: calc(100% - 20px) !important;
+  min-height: auto !important;
 
-  font-family: "Poppins", sans-serif;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
+  margin: 0 !important;
+  padding: 5px 7px !important;
 
-  cursor: pointer;
+  background: rgba(255, 255, 255, 0.97) !important;
+
+  border: 1px solid rgba(77, 151, 183, 0.22) !important;
+  border-radius: 999px !important;
 
   box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.15);
+    0 3px 12px rgba(0, 0, 0, 0.10) !important;
 
-  transition:
-    transform 0.15s ease,
-    background-color 0.15s ease,
-    color 0.15s ease;
+  white-space: nowrap !important;
+  overflow-x: auto !important;
+
+  pointer-events: auto !important;
 }
 
-.top-home-button:hover {
-  background: #4D97B7;
-  color: #ffffff;
-
-  transform:
-    translateX(-50%)
-    translateY(-1px);
-}
-
-.top-home-button:active {
-  transform:
-    translateX(-50%)
-    scale(0.96);
-}
-
-.top-home-button:focus-visible {
-  outline: 3px solid rgba(77, 151, 183, 0.35);
-  outline-offset: 2px;
-}
 
 /* =========================================================
-   TOP SYNC STATUS AND BUTTON
+   SYNC STATUS GROUP
 ========================================================= */
 
-.top-sync-tools {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+.top-status .top-sync-tools {
+  position: static !important;
+
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  gap: 5px !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+
+  margin: 0 !important;
+  padding: 0 !important;
+
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
+  pointer-events: auto !important;
 }
 
-.top-sync-button {
-  padding: 5px 9px;
 
-  border: 1px solid rgba(255, 255, 255, 0.85);
-  border-radius: 16px;
+/* =========================================================
+   PENDING SYNC COUNTER
+========================================================= */
 
-  background: #ffffff;
-  color: #4D97B7;
+.top-status #syncCounter {
+  position: static !important;
 
-  font-family: "Poppins", sans-serif;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.3px;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 
-  cursor: pointer;
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 28px !important;
 
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.12);
+  margin: 0 !important;
+  padding: 5px 9px !important;
+
+  background: #ffffff !important;
+  color: #4D97B7 !important;
+
+  border: 1px solid #4D97B7 !important;
+  border-radius: 999px !important;
+
+  font-family: "Poppins", sans-serif !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+
+  box-shadow: none !important;
+
+  white-space: nowrap !important;
+  pointer-events: auto !important;
+}
+
+
+/* =========================================================
+   SYNC NOW BUTTON
+========================================================= */
+
+.top-status .top-sync-button {
+  position: static !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 28px !important;
+
+  margin: 0 !important;
+  padding: 5px 9px !important;
+
+  background: #4D97B7 !important;
+  color: #ffffff !important;
+
+  border: 1px solid #4D97B7 !important;
+  border-radius: 999px !important;
+
+  font-family: "Poppins", sans-serif !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+  pointer-events: auto !important;
+
+  transform: none !important;
+
+  white-space: nowrap !important;
 
   transition:
     background-color 0.15s ease,
     color 0.15s ease,
-    transform 0.15s ease,
-    opacity 0.15s ease;
+    opacity 0.15s ease !important;
 }
 
-.top-sync-button:hover {
-  background: #4D97B7;
-  color: #ffffff;
+.top-status .top-sync-button:hover {
+  background: #ffffff !important;
+  color: #4D97B7 !important;
 }
 
-.top-sync-button:active {
-  transform: scale(0.95);
+.top-status .top-sync-button:active {
+  opacity: 0.72 !important;
+  transform: none !important;
 }
 
-.top-sync-button:disabled {
-  opacity: 0.55;
-  cursor: not-allowed;
+.top-status .top-sync-button:disabled {
+  opacity: 0.5 !important;
+  cursor: wait !important;
 }
 
-.top-sync-button.syncing {
-  cursor: wait;
+.top-status .top-sync-button.syncing {
+  cursor: wait !important;
+}
+
+
+/* =========================================================
+   HOME BUTTON
+========================================================= */
+
+.top-status .top-home-button {
+  position: static !important;
+
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 28px !important;
+
+  margin: 0 !important;
+  padding: 5px 9px !important;
+
+  background: #4D97B7 !important;
+  color: #ffffff !important;
+
+  border: 1px solid #4D97B7 !important;
+  border-radius: 999px !important;
+
+  font-family: "Poppins", sans-serif !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+
+  box-shadow: none !important;
+
+  cursor: pointer !important;
+  pointer-events: auto !important;
+
+  transform: none !important;
+
+  white-space: nowrap !important;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    opacity 0.15s ease !important;
+}
+
+.top-status .top-home-button:hover {
+  background: #ffffff !important;
+  color: #4D97B7 !important;
+
+  transform: none !important;
+}
+
+.top-status .top-home-button:active {
+  opacity: 0.72 !important;
+  transform: none !important;
+}
+
+.top-status .top-home-button:focus-visible {
+  outline: 2px solid rgba(77, 151, 183, 0.35) !important;
+  outline-offset: 2px !important;
+}
+
+
+/* =========================================================
+   ONLINE / OFFLINE STATUS
+========================================================= */
+
+.top-status #connectionStatus {
+  position: static !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 28px !important;
+
+  margin: 0 !important;
+  padding: 5px 9px !important;
+
+  background: #ffffff !important;
+
+  border-radius: 999px !important;
+
+  font-family: "Poppins", sans-serif !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  letter-spacing: 0 !important;
+
+  box-shadow: none !important;
+
+  white-space: nowrap !important;
+  pointer-events: auto !important;
+}
+
+.top-status #connectionStatus.online {
+  color: #16844f !important;
+  border: 1px solid #20a464 !important;
+}
+
+.top-status #connectionStatus.offline {
+  color: #c0392b !important;
+  border: 1px solid #d9534f !important;
+}
+
+
+/* Prevent the fixed toolbar from covering page content */
+body {
+  padding-top: 52px;
+}
+
+
+/* =========================================================
+   MOBILE / SMALL SCREEN
+========================================================= */
+
+@media screen and (max-width: 600px) {
+
+  .top-status {
+    top: 6px !important;
+    gap: 3px !important;
+
+    max-width: calc(100% - 10px) !important;
+
+    padding: 4px 5px !important;
+  }
+
+  .top-status .top-sync-tools {
+    gap: 3px !important;
+  }
+
+  .top-status #syncCounter,
+  .top-status .top-sync-button,
+  .top-status .top-home-button,
+  .top-status #connectionStatus {
+    min-height: 25px !important;
+    padding: 4px 6px !important;
+    font-size: 7.5px !important;
+  }
+
+  body {
+    padding-top: 46px;
+  }
 }
