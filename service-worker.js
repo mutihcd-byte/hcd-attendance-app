@@ -2,7 +2,7 @@
    HCD ATTENDANCE KIOSK SERVICE WORKER
    ========================================================= */
 
-const APP_VERSION = "2026-07-23-05";
+const APP_VERSION = "2026-07-23-06";
 
 const CACHE_PREFIX = "hcd-attendance-";
 const CACHE_NAME =
@@ -24,8 +24,8 @@ const CACHE_NAME =
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
-  "./style.css?v=2026-07-23-05",
-  "./app.js?v=2026-07-23-05",
+  "./style.css?v=2026-07-23-06",
+  "./app.js?v=2026-07-23-06",
   "./manifest.json"
 ];
 
