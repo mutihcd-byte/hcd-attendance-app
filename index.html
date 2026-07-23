@@ -31,51 +31,46 @@
   <!-- CSS -->
   <link
   rel="stylesheet"
-  href="./style.css?v=2026-07-23-04"
+  href="./style.css?v=2026-07-23-05"
 >
 </head>
 
 <body>
 
  <!-- COMPACT TOP TOOLBAR -->
-<div class="top-toolbar">
-
-  <!-- PENDING SYNC STATUS -->
-  <div
+<div
+  id="kioskToolbar"
+  class="kiosk-topbar"
+>
+  <span
     id="syncCounter"
-    class="toolbar-status"
+    class="kiosk-pill kiosk-sync-status"
   >
-    ✔ All synced
-  </div>
+    all synced
+  </span>
 
-  <!-- MANUAL SYNC BUTTON -->
   <button
     type="button"
     id="syncPendingBtn"
-    class="toolbar-button"
-    title="Sync all pending attendance"
+    class="kiosk-pill kiosk-action-button"
   >
-    ↻ SYNC NOW
+    sync now
   </button>
 
-  <!-- HOME BUTTON -->
   <button
     type="button"
     id="homeBtn"
-    class="toolbar-button"
-    title="Return to training selection"
+    class="kiosk-pill kiosk-action-button"
   >
-    ⌂ HOME
+    home
   </button>
 
-  <!-- CONNECTION STATUS -->
-  <div
+  <span
     id="connectionStatus"
-    class="toolbar-status online"
+    class="kiosk-pill kiosk-connection-status online"
   >
-    ONLINE
-  </div>
-
+    online
+  </span>
 </div>
 
 
@@ -307,7 +302,7 @@
   <!-- JS -->
     <!-- MAIN ATTENDANCE KIOSK APPLICATION -->
   <script
-    src="./app.js?v=2026-07-23-04"
+    src="./app.js?v=2026-07-23-05"
     onload="console.log('app.js loaded successfully')"
     onerror="console.error('ERROR: app.js failed to load')"
   ></script>
