@@ -19,7 +19,7 @@
   <!-- PWA MANIFEST -->
   <link
     rel="manifest"
-    href="manifest.json"
+    href="./manifest.json"
   >
 
   <!-- Poppins Font -->
@@ -30,9 +30,9 @@
 
   <!-- CSS -->
   <link
-    rel="stylesheet"
-    href="style.css?v=manual-employee-v2"
-  >
+  rel="stylesheet"
+  href="./style.css?v=2026-07-23-01"
+>
 </head>
 
 <body>
@@ -280,7 +280,102 @@
 
 
   <!-- JS -->
-  <script src="app.js?v=manual-employee-v2"></script>
+  <!-- MAIN APPLICATION JS -->
+<script
+  src="./script.js?v=2026-07-23-01"
+></script>
+
+
+<!-- SERVICE WORKER REGISTRATION -->
+<script>
+(() => {
+  if (!("serviceWorker" in navigator)) {
+    console.warn(
+      "Service workers are not supported in this browser."
+    );
+
+    return;
+  }
+
+  let pageIsReloading = false;
+
+  /*
+    When a newly activated service worker takes control,
+    reload the page once to display the newest kiosk version.
+  */
+  navigator.serviceWorker.addEventListener(
+    "controllerchange",
+    () => {
+      if (pageIsReloading) {
+        return;
+      }
+
+      pageIsReloading = true;
+
+      console.log(
+        "New kiosk version activated. Reloading page."
+      );
+
+      window.location.reload();
+    }
+  );
+
+  window.addEventListener(
+    "load",
+    async () => {
+      try {
+        const registration =
+          await navigator.serviceWorker.register(
+            "./service-worker.js",
+            {
+              scope: "./",
+              updateViaCache: "none"
+            }
+          );
+
+        console.log(
+          "Service worker registered successfully:",
+          registration.scope
+        );
+
+        /*
+          Immediately check whether a newer service worker
+          is available.
+        */
+        await registration.update();
+
+        /*
+          Check for updates every hour when the kiosk remains
+          open for a long period.
+        */
+        window.setInterval(
+          async () => {
+            try {
+              await registration.update();
+
+              console.log(
+                "Checked for a newer kiosk version."
+              );
+            } catch (updateError) {
+              console.warn(
+                "Unable to check for a kiosk update:",
+                updateError
+              );
+            }
+          },
+          60 * 60 * 1000
+        );
+
+      } catch (registrationError) {
+        console.error(
+          "Service worker registration failed:",
+          registrationError
+        );
+      }
+    }
+  );
+})();
+</script>
 
 </body>
 
