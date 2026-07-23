@@ -31,27 +31,58 @@
   <!-- CSS -->
   <link
   rel="stylesheet"
-  href="./style.css?v=2026-07-23-02"
+  href="./style.css?v=2026-07-23-03"
 >
 </head>
 
 <body>
 
-  <!-- TOP STATUS BAR -->
-  <div class="top-status">
+ <!-- TOP STATUS BAR -->
+<div class="top-status">
+
+  <!-- SYNC STATUS AND MANUAL SYNC BUTTON -->
+  <div class="top-sync-tools">
 
     <div id="syncCounter">
       ✔ All synced
     </div>
 
-    <div
-      id="connectionStatus"
-      class="online"
+    <button
+      type="button"
+      id="syncPendingBtn"
+      class="top-sync-button"
+      onclick="syncAllPendingAttendance()"
+      title="Sync all pending attendance records"
+      aria-label="Sync all pending attendance records"
     >
-      ONLINE
-    </div>
+      ↻ SYNC
+    </button>
 
   </div>
+
+
+  <!-- PERMANENT HOME BUTTON -->
+  <button
+    type="button"
+    id="homeBtn"
+    class="top-home-button"
+    onclick="goBackHome()"
+    title="Return to training selection"
+    aria-label="Return to training selection"
+  >
+    ⌂ HOME
+  </button>
+
+
+  <!-- CONNECTION STATUS -->
+  <div
+    id="connectionStatus"
+    class="online"
+  >
+    ONLINE
+  </div>
+
+</div>
 
 
   <main class="container">
@@ -282,7 +313,7 @@
   <!-- JS -->
     <!-- MAIN ATTENDANCE KIOSK APPLICATION -->
   <script
-    src="./app.js?v=2026-07-23-02"
+    src="./app.js?v=2026-07-23-03"
     onload="console.log('app.js loaded successfully')"
     onerror="console.error('ERROR: app.js failed to load')"
   ></script>
