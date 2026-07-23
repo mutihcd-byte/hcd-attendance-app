@@ -1,3 +1,7 @@
+/* =========================================================
+   ROOT VARIABLES
+========================================================= */
+
 :root {
   --primary: #4D97B7;
   --primary-dark: #377b99;
@@ -18,20 +22,24 @@
 }
 
 
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+
 * {
   box-sizing: border-box;
 }
-
 
 html {
   min-height: 100%;
 }
 
-
 body {
-  margin: 0;
-
+  width: 100%;
   min-height: 100vh;
+
+  margin: 0;
+  padding: 0 24px 60px;
 
   background:
     linear-gradient(
@@ -40,206 +48,330 @@ body {
       #f4fbfe 100%
     );
 
+  color: var(--text);
+
   font-family:
     "Poppins",
     sans-serif;
 
+  /*
+    IMPORTANT:
+    Toolbar and main content are stacked vertically.
+  */
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 
-  padding:
-    115px 24px 60px;
+  overflow-x: hidden;
 }
 
 
-/* =========================
+/* =========================================================
+   COMPACT TOP TOOLBAR
+========================================================= */
+
+#kioskToolbar.kiosk-topbar {
+  position: sticky;
+  top: 14px;
+
+  z-index: 10000;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  width: max-content;
+  max-width: calc(100vw - 24px);
+
+  margin: 24px auto 34px;
+  padding: 0;
+
+  background: transparent;
+
+  white-space: nowrap;
+
+  pointer-events: auto;
+}
+
+
+/* =========================================================
+   SHARED TOOLBAR PILL SIZE
+========================================================= */
+
+#kioskToolbar #syncCounter,
+#kioskToolbar #connectionStatus,
+#kioskToolbar #syncPendingBtn,
+#kioskToolbar #homeBtn {
+  display: inline-flex;
+  flex: 0 0 auto;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 124px;
+  height: 40px;
+
+  min-width: 124px;
+  max-width: 124px;
+  min-height: 40px;
+
+  margin: 0;
+  padding: 0 14px;
+
+  border-radius: 999px;
+
+  box-sizing: border-box;
+
+  font-family:
+    "Poppins",
+    sans-serif;
+
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+
+  text-align: center;
+  text-transform: lowercase;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  box-shadow:
+    0 6px 16px rgba(77, 151, 183, 0.08);
+}
+
+
+/* =========================================================
+   SYNC COUNTER
+========================================================= */
+
+#kioskToolbar #syncCounter {
+  background: var(--white);
+  color: var(--primary-dark);
+
+  border:
+    1.5px solid var(--primary);
+}
+
+
+/* =========================================================
+   TOOLBAR ACTION BUTTONS
+========================================================= */
+
+#kioskToolbar #syncPendingBtn,
+#kioskToolbar #homeBtn {
+  /*
+    Prevent the large global button rules from affecting
+    the small toolbar buttons.
+  */
+  appearance: none;
+  -webkit-appearance: none;
+
+  background: var(--primary);
+  color: var(--white);
+
+  border:
+    1.5px solid var(--primary);
+
+  cursor: pointer;
+  pointer-events: auto;
+
+  transform: none;
+
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease,
+    opacity 0.15s ease;
+}
+
+#kioskToolbar #syncPendingBtn:hover,
+#kioskToolbar #homeBtn:hover {
+  background: var(--primary-dark);
+  color: var(--white);
+
+  border-color:
+    var(--primary-dark);
+
+  transform:
+    translateY(-1px);
+}
+
+#kioskToolbar #syncPendingBtn:active,
+#kioskToolbar #homeBtn:active {
+  transform:
+    scale(0.96);
+}
+
+#kioskToolbar #syncPendingBtn:focus-visible,
+#kioskToolbar #homeBtn:focus-visible {
+  outline:
+    3px solid rgba(77, 151, 183, 0.25);
+
+  outline-offset: 2px;
+}
+
+#kioskToolbar #syncPendingBtn:disabled,
+#kioskToolbar #homeBtn:disabled {
+  opacity: 0.55;
+
+  cursor: wait;
+
+  transform: none;
+}
+
+
+/* =========================================================
+   CONNECTION STATUS
+========================================================= */
+
+#kioskToolbar #connectionStatus {
+  background: var(--white);
+}
+
+#kioskToolbar #connectionStatus.online {
+  color: #3d902d;
+
+  border:
+    1.5px solid #65a956;
+}
+
+#kioskToolbar #connectionStatus.offline {
+  color: var(--danger);
+
+  border:
+    1.5px solid var(--danger);
+}
+
+
+/* =========================================================
    MAIN CONTAINER
-========================= */
+========================================================= */
 
 .container {
+  position: relative;
+
   width: min(900px, 100%);
+
+  margin: 0 auto;
+  padding: 0;
 
   text-align: center;
 }
 
 
-/* =========================
-   TOP STATUS
-========================= */
-
-.top-status {
-  position: fixed;
-
-  top: 15px;
-  left: 15px;
-  right: 15px;
-
-  z-index: 9999;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  pointer-events: none;
-}
-
-
-#syncCounter,
-#connectionStatus {
-  font-size: 13px;
-  font-weight: 700;
-
-  padding:
-    7px 12px;
-
-  border-radius: 999px;
-
-  background:
-    rgba(255, 255, 255, 0.94);
-
-  box-shadow:
-    0 5px 16px rgba(0, 0, 0, 0.06);
-}
-
-
-#syncCounter {
-  color: var(--primary);
-
-  border:
-    1px solid var(--primary);
-}
-
-
-#connectionStatus.online {
-  color: var(--success);
-
-  border:
-    1px solid var(--success);
-}
-
-
-#connectionStatus.offline {
-  color: var(--danger);
-
-  border:
-    1px solid var(--danger);
-}
-
-
-/* =========================
+/* =========================================================
    CACHE STATUS
-========================= */
+========================================================= */
 
 #cacheStatus {
-  margin-bottom: 12px;
+  min-height: 0;
 
-  font-size: 12px;
-  line-height: 1.7;
-
-  font-weight: 500;
+  margin:
+    0 auto 12px;
 
   color: var(--primary);
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.7;
+
+  text-align: center;
+}
+
+#cacheStatus:empty {
+  display: none;
 }
 
 
-/* =========================
+/* =========================================================
    TITLE
-========================= */
+========================================================= */
 
 h1 {
+  width: 100%;
+
   margin:
-    0 0 10px;
+    0 auto 28px;
+
+  color: var(--primary);
 
   font-size:
     clamp(38px, 7vw, 64px);
 
-  line-height: 1.05;
-
-  color: var(--primary);
-
   font-weight: 900;
-
+  line-height: 1.05;
   letter-spacing: -2px;
+
+  text-align: center;
 }
 
 
-/* =========================
-   TRAINING TITLE
-========================= */
+/* =========================================================
+   TRAINING AND EMPLOYEE SECTIONS
+========================================================= */
 
-#trainingTitleDisplay {
-  display: none;
-
-  margin:
-    28px auto 0;
-
-  padding:
-    18px 25px;
-
-  width: fit-content;
-  max-width: 100%;
-
-  border:
-    2px solid var(--border);
-
-  border-radius: 18px;
-
-  background: var(--primary-light);
-
-  color: var(--primary);
-
-  font-size:
-    clamp(22px, 4vw, 36px);
-
-  font-weight: 800;
-
-  line-height: 1.25;
-
-  box-shadow: var(--shadow);
+#trainingSection,
+#employeeSection {
+  width: 100%;
+  margin: 0 auto;
 }
 
 
-#trainingTitleDisplay:not(:empty) {
-  display: block;
-}
-
-
-.trainingDate {
-  display: inline-block;
-
-  font-size: 0.65em;
-  font-weight: 600;
-
-  color: var(--primary-dark);
-}
-
-
-/* =========================
+/* =========================================================
    ROW LAYOUT
-========================= */
+========================================================= */
 
 .row {
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+
   align-items: stretch;
+  justify-content: center;
 
   gap: 18px;
 
+  width: 100%;
+
+  margin:
+    0 auto;
+}
+
+
+/* Add spacing to employee search only */
+#employeeSection > .row {
   margin-top: 30px;
 }
 
 
-/* =========================
+/* =========================================================
    INPUTS
-========================= */
+========================================================= */
 
 input {
-  width: 500px;
-  max-width: 100%;
+  width: 100%;
+  min-width: 0;
 
   padding:
     20px 22px;
+
+  background: var(--white);
+  color: var(--text);
+
+  border:
+    3px solid var(--primary);
+
+  border-radius: 18px;
+
+  outline: none;
 
   font-family:
     "Poppins",
@@ -250,23 +382,15 @@ input {
 
   font-weight: 700;
 
-  color: var(--text);
-
-  border:
-    3px solid var(--primary);
-
-  border-radius: 18px;
-
-  outline: none;
-
-  background: var(--white);
-
   transition:
     border-color 0.2s ease,
     box-shadow 0.2s ease,
     transform 0.2s ease;
 }
 
+.row input {
+  flex: 1 1 auto;
+}
 
 input:focus {
   border-color:
@@ -279,15 +403,14 @@ input:focus {
     translateY(-1px);
 }
 
-
 input::placeholder {
   color: #9fb3bd;
 }
 
 
-/* =========================
-   BUTTONS
-========================= */
+/* =========================================================
+   MAIN BUTTONS
+========================================================= */
 
 button {
   min-width: 220px;
@@ -295,15 +418,11 @@ button {
   padding:
     20px 32px;
 
+  background: var(--primary);
+  color: var(--white);
+
   border: none;
-
   border-radius: 18px;
-
-  background:
-    var(--primary);
-
-  color:
-    var(--white);
 
   font-family:
     "Poppins",
@@ -322,7 +441,6 @@ button {
     box-shadow 0.2s ease;
 }
 
-
 button:hover {
   background:
     var(--primary-dark);
@@ -334,12 +452,10 @@ button:hover {
     0 9px 20px rgba(77, 151, 183, 0.22);
 }
 
-
 button:active {
   transform:
     translateY(0);
 }
-
 
 button:disabled {
   opacity: 0.6;
@@ -352,25 +468,49 @@ button:disabled {
 }
 
 
+/* Restore toolbar sizing after global button rules */
+#kioskToolbar #syncPendingBtn,
+#kioskToolbar #homeBtn {
+  width: 124px;
+  height: 40px;
+
+  min-width: 124px;
+  max-width: 124px;
+  min-height: 40px;
+
+  margin: 0;
+  padding: 0 14px;
+
+  border-radius: 999px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  box-shadow:
+    0 6px 16px rgba(77, 151, 183, 0.08);
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+========================================================= */
+
 .secondary-button {
   background: #e8f2f6;
-
-  color:
-    var(--primary-dark);
+  color: var(--primary-dark);
 
   border:
     2px solid var(--border);
 }
-
 
 .secondary-button:hover {
   background: #dcecf3;
 }
 
 
-/* =========================
+/* =========================================================
    MESSAGES
-========================= */
+========================================================= */
 
 #trainingMsg,
 #employeeMsg {
@@ -378,18 +518,70 @@ button:disabled {
 
   margin-top: 15px;
 
+  color: var(--text);
+
   font-size:
     clamp(17px, 3vw, 24px);
 
   font-weight: 600;
-
-  color: var(--text);
 }
 
 
-/* =========================
+/* =========================================================
+   TRAINING TITLE
+========================================================= */
+
+#trainingTitleDisplay {
+  display: none;
+
+  width: fit-content;
+  max-width: 100%;
+
+  margin:
+    28px auto 0;
+
+  padding:
+    18px 25px;
+
+  background:
+    var(--primary-light);
+
+  color:
+    var(--primary);
+
+  border:
+    2px solid var(--border);
+
+  border-radius: 18px;
+
+  font-size:
+    clamp(22px, 4vw, 36px);
+
+  font-weight: 800;
+  line-height: 1.25;
+
+  box-shadow:
+    var(--shadow);
+}
+
+#trainingTitleDisplay:not(:empty) {
+  display: block;
+}
+
+.trainingDate {
+  display: inline-block;
+
+  color:
+    var(--primary-dark);
+
+  font-size: 0.65em;
+  font-weight: 600;
+}
+
+
+/* =========================================================
    EMPLOYEE CARD
-========================= */
+========================================================= */
 
 .employeeCard {
   position: relative;
@@ -403,48 +595,46 @@ button:disabled {
   padding:
     38px 30px;
 
+  background:
+    var(--white);
+
   border:
     3px solid var(--primary);
 
   border-radius: 22px;
 
-  background: var(--white);
-
-  box-shadow: var(--shadow);
+  box-shadow:
+    var(--shadow);
 }
 
-
 .employeeName {
+  color: var(--text);
+
   font-size:
     clamp(30px, 6vw, 50px);
 
-  line-height: 1.15;
-
   font-weight: 900;
-
-  color: var(--text);
+  line-height: 1.15;
 }
-
 
 .employeeInfo {
   margin-top: 12px;
+
+  color: #56646c;
 
   font-size:
     clamp(18px, 3vw, 27px);
 
   line-height: 1.55;
-
-  color: #56646c;
 }
 
-
 .manual-badge {
+  display: inline-block;
+
   margin-bottom: 14px;
 
   padding:
     6px 12px;
-
-  border-radius: 999px;
 
   background:
     #fff4dc;
@@ -452,16 +642,17 @@ button:disabled {
   color:
     #9b6913;
 
+  border-radius: 999px;
+
   font-size: 12px;
   font-weight: 800;
-
   letter-spacing: 0.7px;
 }
 
 
-/* =========================
+/* =========================================================
    MANUAL ENTRY CARD
-========================= */
+========================================================= */
 
 .manual-entry-card {
   width:
@@ -473,19 +664,19 @@ button:disabled {
   padding:
     30px;
 
-  text-align: left;
+  background:
+    var(--white);
 
   border:
     2px solid var(--border);
 
   border-radius: 22px;
 
-  background:
-    var(--white);
+  text-align: left;
 
-  box-shadow: var(--shadow);
+  box-shadow:
+    var(--shadow);
 }
-
 
 .manual-entry-heading {
   color:
@@ -498,7 +689,6 @@ button:disabled {
 
   text-align: center;
 }
-
 
 .manual-entry-description {
   margin:
@@ -513,11 +703,9 @@ button:disabled {
   text-align: center;
 }
 
-
 .manual-form-group {
   margin-top: 18px;
 }
-
 
 .manual-form-group label {
   display: block;
@@ -531,7 +719,6 @@ button:disabled {
   font-weight: 700;
 }
 
-
 .manual-form-group input {
   width: 100%;
 
@@ -539,13 +726,11 @@ button:disabled {
     15px 17px;
 
   border-width: 2px;
-
   border-radius: 14px;
 
   font-size:
     clamp(18px, 3vw, 25px);
 }
-
 
 .manual-button-row {
   display: flex;
@@ -554,7 +739,6 @@ button:disabled {
 
   margin-top: 25px;
 }
-
 
 .manual-button-row button {
   flex: 1;
@@ -568,9 +752,9 @@ button:disabled {
 }
 
 
-/* =========================
+/* =========================================================
    MAIN ACTION BUTTONS
-========================= */
+========================================================= */
 
 #submitBtn {
   display: block;
@@ -585,12 +769,10 @@ button:disabled {
     var(--success);
 }
 
-
 #submitBtn:hover {
   background:
     #247c4d;
 }
-
 
 #syncBtn {
   display: block;
@@ -605,22 +787,60 @@ button:disabled {
     #79aabb;
 }
 
-
 #syncBtn:hover {
   background:
     #5f94a8;
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* =========================================================
+   TABLET AND MOBILE
+========================================================= */
 
 @media screen and (max-width: 768px) {
 
   body {
     padding:
-      78px 14px 35px;
+      0 14px 35px;
+  }
+
+
+  #kioskToolbar.kiosk-topbar {
+    top: 8px;
+
+    gap: 5px;
+
+    max-width:
+      calc(100vw - 12px);
+
+    margin:
+      14px auto 28px;
+
+    overflow-x: auto;
+
+    scrollbar-width: none;
+  }
+
+  #kioskToolbar.kiosk-topbar::-webkit-scrollbar {
+    display: none;
+  }
+
+
+  #kioskToolbar #syncCounter,
+  #kioskToolbar #connectionStatus,
+  #kioskToolbar #syncPendingBtn,
+  #kioskToolbar #homeBtn {
+    width: 94px;
+    min-width: 94px;
+    max-width: 94px;
+
+    height: 34px;
+    min-height: 34px;
+
+    padding:
+      0 8px;
+
+    font-size: 10px;
   }
 
 
@@ -630,23 +850,9 @@ button:disabled {
 
 
   h1 {
+    margin-bottom: 22px;
+
     letter-spacing: -1px;
-  }
-
-
-  .top-status {
-    top: 10px;
-    left: 10px;
-    right: 10px;
-  }
-
-
-  #syncCounter,
-  #connectionStatus {
-    font-size: 11px;
-
-    padding:
-      6px 9px;
   }
 
 
@@ -655,6 +861,11 @@ button:disabled {
 
     gap: 12px;
 
+    width: 100%;
+  }
+
+
+  #employeeSection > .row {
     margin-top: 24px;
   }
 
@@ -671,13 +882,31 @@ button:disabled {
 
   button {
     width: 100%;
-
     min-width: 0;
 
     padding:
       16px;
 
     border-radius: 15px;
+  }
+
+
+  /* Keep toolbar buttons compact on mobile */
+  #kioskToolbar #syncPendingBtn,
+  #kioskToolbar #homeBtn {
+    width: 94px;
+    min-width: 94px;
+    max-width: 94px;
+
+    height: 34px;
+    min-height: 34px;
+
+    padding:
+      0 8px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
   }
 
 
@@ -716,217 +945,43 @@ button:disabled {
 }
 
 
-/* =========================
-   EXTRA SMALL MOBILE
-========================= */
+/* =========================================================
+   EXTRA-SMALL MOBILE
+========================================================= */
 
 @media screen and (max-width: 420px) {
 
-  .top-status {
-    align-items: flex-start;
+  #kioskToolbar.kiosk-topbar {
+    justify-content: flex-start;
+
+    gap: 4px;
+
+    width: 100%;
+    max-width: 100%;
+
+    margin-bottom: 24px;
   }
 
 
-  #syncCounter,
-  #connectionStatus {
-    max-width: 48%;
+  #kioskToolbar #syncCounter,
+  #kioskToolbar #connectionStatus,
+  #kioskToolbar #syncPendingBtn,
+  #kioskToolbar #homeBtn {
+    width: 78px;
+    min-width: 78px;
+    max-width: 78px;
 
-    white-space: normal;
+    height: 31px;
+    min-height: 31px;
 
-    text-align: center;
+    padding:
+      0 5px;
+
+    font-size: 8px;
   }
 
 
   .manual-entry-description {
     font-size: 13px;
-  }
-}
-
-=========================
-
-/* =========================================================
-   COMPACT CENTERED TOP TOOLBAR
-========================================================= */
-
-#kioskToolbar.kiosk-topbar {
-  position: relative;
-  z-index: 1000;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-
-  gap: 16px;
-
-  width: max-content;
-  max-width: calc(100% - 24px);
-
-  margin: 36px auto 135px;
-  padding: 0;
-
-  background: transparent;
-
-  box-sizing: border-box;
-  white-space: nowrap;
-
-  pointer-events: auto;
-}
-
-
-/* =========================================================
-   SHARED PILL SIZE
-========================================================= */
-
-#kioskToolbar .kiosk-pill {
-  display: inline-flex;
-  flex: 0 0 auto;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 124px;
-  height: 40px;
-
-  margin: 0;
-  padding: 0 16px;
-
-  box-sizing: border-box;
-  border-radius: 999px;
-
-  font-family: "Poppins", sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: lowercase;
-
-  white-space: nowrap;
-}
-
-
-/* =========================================================
-   ALL SYNCED / PENDING STATUS
-========================================================= */
-
-#kioskToolbar .kiosk-sync-status {
-  background: #ffffff;
-  color: #3786b1;
-
-  border: 1.5px solid #3786b1;
-}
-
-
-/* =========================================================
-   SYNC NOW AND HOME BUTTONS
-========================================================= */
-
-#kioskToolbar button.kiosk-action-button {
-  all: unset;
-
-  display: inline-flex;
-  flex: 0 0 auto;
-
-  align-items: center;
-  justify-content: center;
-
-  width: 124px;
-  height: 40px;
-
-  margin: 0;
-  padding: 0 16px;
-
-  box-sizing: border-box;
-
-  background: #3786b1;
-  color: #ffffff;
-
-  border: 1.5px solid #3786b1;
-  border-radius: 999px;
-
-  font-family: "Poppins", sans-serif;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1;
-  text-transform: lowercase;
-
-  cursor: pointer;
-  pointer-events: auto;
-
-  white-space: nowrap;
-
-  transition:
-    background-color 0.15s ease,
-    color 0.15s ease,
-    transform 0.1s ease,
-    opacity 0.15s ease;
-}
-
-#kioskToolbar button.kiosk-action-button:hover {
-  background: #ffffff;
-  color: #3786b1;
-}
-
-#kioskToolbar button.kiosk-action-button:active {
-  transform: scale(0.96);
-}
-
-#kioskToolbar button.kiosk-action-button:focus-visible {
-  outline: 3px solid rgba(55, 134, 177, 0.25);
-  outline-offset: 2px;
-}
-
-#kioskToolbar button.kiosk-action-button:disabled {
-  opacity: 0.55;
-  cursor: wait;
-}
-
-
-/* =========================================================
-   ONLINE / OFFLINE STATUS
-========================================================= */
-
-#kioskToolbar .kiosk-connection-status {
-  background: #ffffff;
-}
-
-#kioskToolbar .kiosk-connection-status.online {
-  color: #3d902d;
-  border: 1.5px solid #65a956;
-}
-
-#kioskToolbar .kiosk-connection-status.offline {
-  color: #c43b3b;
-  border: 1.5px solid #d75a5a;
-}
-
-
-/* =========================================================
-   TABLET AND MOBILE
-========================================================= */
-
-@media screen and (max-width: 700px) {
-
-  #kioskToolbar.kiosk-topbar {
-    gap: 7px;
-
-    max-width: calc(100% - 12px);
-
-    margin-top: 18px;
-    margin-bottom: 80px;
-
-    overflow-x: auto;
-  }
-
-  #kioskToolbar .kiosk-pill,
-  #kioskToolbar button.kiosk-action-button {
-    width: auto;
-    min-width: 78px;
-    height: 34px;
-
-    padding-left: 11px;
-    padding-right: 11px;
-
-    font-size: 10px;
   }
 }
